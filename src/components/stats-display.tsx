@@ -18,9 +18,14 @@ interface StatsDisplayProps {
 
 export const StatsDisplay: React.FC<StatsDisplayProps> = ({ symbol }) => {
   const [ctx, setCtx] = React.useState<PerpsAssetCtx | null>(null);
+
+  const subscribeMessages = React.useMemo(() => [
+    { method: "subscribe", subscription: { type: "activeAssetCtx", coin: symbol } }
+  ], [symbol]);
+
   const { lastMessage } = useWebSocket(
     'wss://api.hyperliquid.xyz/ws',
-    [{ method: "subscribe", subscription: { type: "activeAssetCtx", coin: symbol } }]
+    subscribeMessages
   );
   const [countdown, setCountdown] = React.useState<string>("--:--:--");
   const [unit] = React.useState<string>("USD");

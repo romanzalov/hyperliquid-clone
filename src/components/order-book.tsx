@@ -37,12 +37,15 @@ export const OrderBook: React.FC<OrderBookProps> = ({ symbol }) => {
     const [resolution, setResolution] = React.useState<string>("1");
     const [unit, setUnit] = React.useState<string>(symbol);
     const resolutionOptions = ["1", "2", "5", "10", "100", "1000"];
-    const { lastMessage } = useWebSocket(
-      'wss://api.hyperliquid.xyz/ws',
-      [
+
+    const subscribeMessages = React.useMemo(() => [
         { method: "subscribe", subscription: { type: "l2Book", coin: symbol } },
         { method: "subscribe", subscription: { type: "trades", coin: symbol } },
-      ]
+    ], [symbol]);
+
+    const { lastMessage } = useWebSocket(
+      'wss://api.hyperliquid.xyz/ws',
+      subscribeMessages
     );
 
     React.useEffect(() => {
