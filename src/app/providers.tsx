@@ -7,7 +7,7 @@ import { wagmiConfig } from "@/lib/wagmi";
 const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const privyAppId = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
+  const privyAppId = "cmc5ob9zv00acl80mgjv5ahwd";
 
   if (!privyAppId) {
     // This will prevent the app from rendering and show a clear error in the console.

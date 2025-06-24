@@ -83,3 +83,4 @@ npm test
 ```
 
 This will run all tests located in `__tests__` directories and provide a summary report in your terminal.
+npm r
