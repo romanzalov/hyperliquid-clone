@@ -55,14 +55,16 @@ describe('OrderEntry', () => {
       status: 'idle',
       signTypedData: jest.fn(),
       reset: jest.fn(),
-    } as any);
+      context: undefined,
+      submittedAt: 0,
+    } as unknown as ReturnType<typeof useSignTypedData>);
   });
 
   it('renders order entry form when user is not authenticated', async () => {
     mockUsePrivy.mockReturnValue({
       authenticated: false,
       user: null,
-    } as any);
+    } as unknown as ReturnType<typeof usePrivy>);
 
     await act(async () => {
       render(<OrderEntry symbol="BTC" />);
@@ -84,7 +86,7 @@ describe('OrderEntry', () => {
           address: '0x1234567890123456789012345678901234567890'
         }
       },
-    } as any);
+    } as unknown as ReturnType<typeof usePrivy>);
 
     await act(async () => {
       render(<OrderEntry symbol="BTC" />);
@@ -102,7 +104,7 @@ describe('OrderEntry', () => {
           address: '0x1234567890123456789012345678901234567890'
         }
       },
-    } as any);
+    } as unknown as ReturnType<typeof usePrivy>);
 
     await act(async () => {
       render(<OrderEntry symbol="BTC" />);
@@ -124,7 +126,7 @@ describe('OrderEntry', () => {
           address: '0x1234567890123456789012345678901234567890'
         }
       },
-    } as any);
+    } as unknown as ReturnType<typeof usePrivy>);
 
     await act(async () => {
       render(<OrderEntry symbol="BTC" />);
@@ -142,7 +144,7 @@ describe('OrderEntry', () => {
     mockUsePrivy.mockReturnValue({
       authenticated: false,
       user: null,
-    } as any);
+    } as unknown as ReturnType<typeof usePrivy>);
 
     await act(async () => {
       render(<OrderEntry symbol="BTC" />);
@@ -170,7 +172,7 @@ describe('OrderEntry', () => {
           address: '0x1234567890123456789012345678901234567890'
         }
       },
-    } as any);
+    } as unknown as ReturnType<typeof usePrivy>);
 
     await act(async () => {
       render(<OrderEntry symbol="BTC" />);
@@ -193,7 +195,7 @@ describe('OrderEntry', () => {
           address: '0x1234567890123456789012345678901234567890'
         }
       },
-    } as any);
+    } as unknown as ReturnType<typeof usePrivy>);
 
     // Mock successful signature
     mockSignTypedDataAsync.mockResolvedValue('0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1b');

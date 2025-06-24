@@ -3,7 +3,7 @@ export async function fetchWithRetry(
   init: RequestInit = {},
   retryCount = 5,
   backoffMs = 500
-): Promise<any> {
+): Promise<unknown> {
   for (let i = 0; i < retryCount; i++) {
     const res = await fetch(input, init);
     if (res.status !== 429) {

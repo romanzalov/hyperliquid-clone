@@ -23,7 +23,7 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({ symbol }) => {
     [{ method: "subscribe", subscription: { type: "activeAssetCtx", coin: symbol } }]
   );
   const [countdown, setCountdown] = React.useState<string>("--:--:--");
-  const [unit, setUnit] = React.useState<string>("USD");
+  const [unit] = React.useState<string>("USD");
 
   React.useEffect(() => {
     if (!lastMessage) return;
@@ -32,12 +32,12 @@ export const StatsDisplay: React.FC<StatsDisplayProps> = ({ symbol }) => {
       if (data.channel === "activeAssetCtx" && data.data?.ctx && data.data.coin === symbol) {
         const { ctx } = data.data;
         setCtx({
-          dayNtlVlm: parseFloat(ctx.dayNtlVlm as any),
-          prevDayPx: parseFloat(ctx.prevDayPx as any),
-          markPx: parseFloat(ctx.markPx as any),
-          funding: parseFloat(ctx.funding as any),
-          openInterest: parseFloat(ctx.openInterest as any),
-          oraclePx: parseFloat(ctx.oraclePx as any),
+          dayNtlVlm: parseFloat(ctx.dayNtlVlm as string),
+          prevDayPx: parseFloat(ctx.prevDayPx as string),
+          markPx: parseFloat(ctx.markPx as string),
+          funding: parseFloat(ctx.funding as string),
+          openInterest: parseFloat(ctx.openInterest as string),
+          oraclePx: parseFloat(ctx.oraclePx as string),
         });
       }
     } catch (error) {

@@ -1,6 +1,6 @@
 # Hyperliquid UI Clone
 
-This project is a high-fidelity clone of the Hyperliquid trading terminal, built from scratch using Next.js, TypeScript, Tailwind CSS, and Shadcn UI. It implements core trading features, including wallet connection, live-price feeds, an order book, and user-specific data streams, all powered by direct WebSocket subscriptions to the Hyperliquid API.
+This project is a clone of the Hyperliquid trading terminal, built from scratch using Next.js, TypeScript, Tailwind CSS, and Shadcn UI. It implements core trading features, including wallet connection, live-price feeds, an order book, and user-specific data streams, all powered by direct WebSocket subscriptions to the Hyperliquid API.
 
 ## Core Features
 
@@ -41,8 +41,8 @@ Follow these steps to set up and run the project locally.
 Clone the repository and install the dependencies:
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/romanzalov/hyperliquid-clone
+cd hyperliquid-clone
 npm install
 ```
 

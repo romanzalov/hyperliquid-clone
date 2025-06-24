@@ -10,10 +10,18 @@ interface OrderEntryProps {
     symbol: string;
 }
 
+interface Asset {
+    name: string;
+}
+
+interface MetaResponse {
+    universe: Asset[];
+}
+
 export const OrderEntry: React.FC<OrderEntryProps> = ({ symbol }) => {
     const [size, setSize] = React.useState<string>("");
     const [orderSide, setOrderSide] = React.useState<"buy" | "sell">("buy");
-    const [assets, setAssets] = React.useState<any[]>([]);
+    const [assets, setAssets] = React.useState<Asset[]>([]);
     const { authenticated, user } = usePrivy();
     const { signTypedDataAsync } = useSignTypedData();
 
@@ -24,7 +32,7 @@ export const OrderEntry: React.FC<OrderEntryProps> = ({ symbol }) => {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ type: "meta" }),
-                });
+                }) as MetaResponse;
                 setAssets(meta.universe);
             } catch (error) {
                 console.error("Failed to fetch assets", error);
@@ -135,9 +143,10 @@ export const OrderEntry: React.FC<OrderEntryProps> = ({ symbol }) => {
 
             console.log("Order response:", response);
             alert(`Order placed: ${side.toUpperCase()} ${size} ${symbol}`);
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Order error:", error);
-            alert("Order failed: " + error.message);
+            const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+            alert("Order failed: " + errorMessage);
         }
     };
 
@@ -204,5 +213,5 @@ export const OrderEntry: React.FC<OrderEntryProps> = ({ symbol }) => {
                 )}
             </div>
         </div>
-    )
-} 
+    );
+}; 

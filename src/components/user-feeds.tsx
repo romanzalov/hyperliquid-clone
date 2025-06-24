@@ -5,9 +5,34 @@ import { useWebSocket } from '@/lib/useWebSocket';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+interface Position {
+    coin: string;
+    szi: string;
+    entryPx: string;
+    liquidationPx?: string;
+    unrealizedPnl: string;
+    marginUsed: string;
+}
+
+interface AssetPosition {
+    position: Position;
+}
+
+interface CrossMarginSummary {
+    accountValue: string;
+    totalMarginUsed: string;
+    totalNtlPos: string;
+    totalRawUsd: string;
+}
+
+interface UserState {
+    assetPositions: AssetPosition[];
+    crossMarginSummary: CrossMarginSummary;
+}
+
 export const UserFeeds = () => {
     const { authenticated, user } = usePrivy();
-    const [userState, setUserState] = useState<any>(null);
+    const [userState, setUserState] = useState<UserState | null>(null);
     const [hasReceivedData, setHasReceivedData] = useState(false);
     const walletAddress = user?.wallet?.address;
 
@@ -53,7 +78,7 @@ export const UserFeeds = () => {
     }
     
     const { assetPositions = [], crossMarginSummary } = userState || {};
-    const activePositions = assetPositions.filter((p: any) => parseFloat(p.position.szi) !== 0);
+    const activePositions = assetPositions.filter((p: AssetPosition) => parseFloat(p.position.szi) !== 0);
 
     return (
         <div className="p-4 text-white h-full flex flex-col">
@@ -96,7 +121,7 @@ export const UserFeeds = () => {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {activePositions.map((pos: any, index: number) => (
+                                {activePositions.map((pos: AssetPosition, index: number) => (
                                     <TableRow key={index}>
                                         <TableCell className="font-medium">{pos.position.coin}</TableCell>
                                         <TableCell>{parseFloat(pos.position.szi).toLocaleString()}</TableCell>

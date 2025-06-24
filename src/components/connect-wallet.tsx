@@ -64,9 +64,10 @@ export const ConnectWallet = () => {
       );
       console.log("ApproveAgent response", res);
       alert("Agent approved!");
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
-      alert("Failed to approve agent: " + e.message);
+      const errorMessage = e instanceof Error ? e.message : "Unknown error occurred";
+      alert("Failed to approve agent: " + errorMessage);
     }
   };
 
